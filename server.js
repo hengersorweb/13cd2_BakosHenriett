@@ -10,7 +10,6 @@ const db = mysql.createConnection(
     {
         user: "root",
         host: "localhost",
-        port: 3307,
         password: "",
         database: "teliolimpia"
     }
@@ -40,13 +39,13 @@ app.get("/v3",( req,res) => {
 })
 
 app.post("vuj", (req,res)=> {
-    const sql = "INSERT INTO 'versenyzok' ('ID', 'versenyzo') VALUES (?,?)";
+    const sql = "INSERT INTO `versenyzok` (`ID`, `versenyzo`) VALUES (?,?)";
     const values = [req.body.ID, req.body.versenyzo];
-    db.query(sql, (err, result) => {
+    db.query(sql, values,(err, result) => {
     if (err) return res.status(500).json({error:"Hibás adatbázis művelet!"});
     return res.json(result);
-}
-)    
+    }        
+    )                          
 })
 
 
